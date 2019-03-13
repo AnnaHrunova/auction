@@ -33,5 +33,4 @@ public class BidController {
     public Mono<PlaceBidResult> placeBid(@RequestBody PlaceBidCommand placeBid) {
         return bidService.placeBid(placeBid);
     }
-
 }

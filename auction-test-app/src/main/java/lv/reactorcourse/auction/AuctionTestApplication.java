@@ -1,5 +1,6 @@
 package lv.reactorcourse.auction;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.MediaType;
@@ -13,12 +14,11 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Duration;
 
+@Slf4j
 @SpringBootApplication
 public class AuctionTestApplication {
 
-    static WebClient client = WebClient.create("http://localhost:8080");
-
-    static Logger log = Loggers.getLogger("test-app");
+    private static WebClient client = WebClient.create("http://localhost:8080");
 
     public static void main(String[] args) {
         SpringApplication.run(AuctionTestApplication.class, args);
@@ -27,8 +27,8 @@ public class AuctionTestApplication {
             .flatMap(iteration -> getLot())
             .flatMap(lot -> getTopBid(lot)
                     .switchIfEmpty(Mono.just(new BidDto(null, lot.getId(), BigDecimal.ZERO, null))))
-            .map(bid -> createCommand(bid))
-            .flatMap(command -> placeBid(command))
+            .map(AuctionTestApplication::createCommand)
+            .flatMap(AuctionTestApplication::placeBid)
             .subscribe(result -> log.info("bid placed : {}", result.isAccepted()));
     }
 

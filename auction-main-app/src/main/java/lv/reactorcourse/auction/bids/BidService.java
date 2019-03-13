@@ -1,5 +1,6 @@
 package lv.reactorcourse.auction.bids;
 
+import lombok.extern.slf4j.Slf4j;
 import lv.reactorcourse.auction.bids.dto.BidDto;
 import lv.reactorcourse.auction.bids.dto.PlaceBidCommand;
 import lv.reactorcourse.auction.bids.dto.PlaceBidResult;
@@ -15,18 +16,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.util.Logger;
-import reactor.util.Loggers;
 import reactor.util.function.Tuple2;
 
 import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.LocalDateTime;
 
+@Slf4j
 @Service
 public class BidService {
-
-    private static Logger log = Loggers.getLogger(BidService.class);
 
     private final BidRepository bidRepository;
 
@@ -52,7 +50,7 @@ public class BidService {
         return bidRepository.findAllByLotId(lotId, pageRequest).map(this::toDto);
     }
 
-    public Mono<PlaceBidResult> placeBid(PlaceBidCommand placeBid) {
+    Mono<PlaceBidResult> placeBid(PlaceBidCommand placeBid) {
         PageRequest pageRequest = PageRequest.of(0, 1, Sort.by("value").descending());
         log.debug("place bid request : {}", placeBid);
         return bidRepository
