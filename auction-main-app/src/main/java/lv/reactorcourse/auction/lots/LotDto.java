@@ -1,9 +1,12 @@
 package lv.reactorcourse.auction.lots;
 
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class LotDto {
+@Data
+class LotDto {
 
     private String id;
 
@@ -13,26 +16,10 @@ public class LotDto {
 
     private BigDecimal currentPrice;
 
-    public LotDto(String id, String createdBy, LocalDateTime createdAt, BigDecimal currentPrice) {
+    LotDto(String id, String createdBy, LocalDateTime createdAt, BigDecimal currentPrice) {
         this.id = id;
         this.createdBy = createdBy;
         this.createdAt = createdAt;
         this.currentPrice = currentPrice;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public BigDecimal getCurrentPrice() {
-        return currentPrice;
     }
 }

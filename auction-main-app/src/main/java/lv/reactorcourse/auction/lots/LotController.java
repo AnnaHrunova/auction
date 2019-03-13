@@ -18,11 +18,16 @@ import java.math.BigDecimal;
 @RequestMapping("lots")
 public class LotController {
 
-    @Autowired
-    private LotRepository lotRepository;
+    private final LotRepository lotRepository;
+
+    private final BidService bidService;
+
 
     @Autowired
-    private BidService bidService;
+    public LotController(LotRepository lotRepository, BidService bidService) {
+        this.lotRepository = lotRepository;
+        this.bidService = bidService;
+    }
 
     @GetMapping
     public Flux<LotDto> getLots() {

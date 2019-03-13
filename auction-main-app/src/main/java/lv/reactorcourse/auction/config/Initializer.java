@@ -16,14 +16,20 @@ import java.time.LocalDateTime;
 @Component
 public class Initializer {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    private final LotRepository lotRepository;
+
+    private final Clock clock;
 
     @Autowired
-    private LotRepository lotRepository;
-
-    @Autowired
-    private Clock clock;
+    public Initializer(UserRepository userRepository,
+                       LotRepository lotRepository,
+                       Clock clock) {
+        this.userRepository = userRepository;
+        this.lotRepository = lotRepository;
+        this.clock = clock;
+    }
 
     @PostConstruct
     public void init() {

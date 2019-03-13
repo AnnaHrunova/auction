@@ -1,8 +1,11 @@
 package lv.reactorcourse.auction;
 
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Data
 public class LotDto {
 
     private String id;
@@ -20,21 +23,5 @@ public class LotDto {
         this.createdBy = createdBy;
         this.createdAt = createdAt;
         this.currentPrice = currentPrice;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public BigDecimal getCurrentPrice() {
-        return currentPrice;
     }
 }

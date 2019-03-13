@@ -28,17 +28,24 @@ public class BidService {
 
     private static Logger log = Loggers.getLogger(BidService.class);
 
-    @Autowired
-    private BidRepository bidRepository;
+    private final BidRepository bidRepository;
+
+    private final UserRepository userRepository;
+
+    private final Clock clock;
+
+    private final LotRepository lotRepository;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private Clock clock;
-
-    @Autowired
-    private LotRepository lotRepository;
+    public BidService(BidRepository bidRepository,
+                      UserRepository userRepository,
+                      Clock clock,
+                      LotRepository lotRepository) {
+        this.bidRepository = bidRepository;
+        this.userRepository = userRepository;
+        this.clock = clock;
+        this.lotRepository = lotRepository;
+    }
 
     public Flux<BidDto> findTopByPrice(String lotId, int count) {
         PageRequest pageRequest = PageRequest.of(0, count, Sort.by("value").descending());

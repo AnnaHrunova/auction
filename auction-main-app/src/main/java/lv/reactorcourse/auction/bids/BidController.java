@@ -17,8 +17,12 @@ import reactor.core.publisher.Mono;
 @RequestMapping("bids")
 public class BidController {
 
+    private final BidService bidService;
+
     @Autowired
-    private BidService bidService;
+    public BidController(BidService bidService) {
+        this.bidService = bidService;
+    }
 
     @GetMapping("top/{count}/{lotId}")
     public Flux<BidDto> getBids(@PathVariable int count, @PathVariable String lotId) {

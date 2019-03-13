@@ -1,8 +1,11 @@
 package lv.reactorcourse.auction;
 
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Data
 public class BidDto {
 
     private String username;
@@ -15,26 +18,10 @@ public class BidDto {
 
     public BidDto(){}
 
-    public BidDto(String username, String lotId, BigDecimal value, LocalDateTime placedAt) {
+    BidDto(String username, String lotId, BigDecimal value, LocalDateTime placedAt) {
         this.username = username;
         this.lotId = lotId;
         this.value = value;
         this.placedAt = placedAt;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getLotId() {
-        return lotId;
-    }
-
-    public BigDecimal getValue() {
-        return value;
-    }
-
-    public LocalDateTime getPlacedAt() {
-        return placedAt;
     }
 }
