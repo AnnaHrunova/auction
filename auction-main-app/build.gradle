@@ -1,0 +1,4 @@
+dependencies {
+    compile libs.springFlux
+    compile libs.persistanceReactive
+}

@@ -1,0 +1,8 @@
+pluginManagement {
+	repositories {
+		gradlePluginPortal()
+	}
+}
+rootProject.name = 'auction'
+include 'auction-main-app'
+include 'auction-test-app'
