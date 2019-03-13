@@ -12,7 +12,6 @@ buildscript {
 	}
 }
 
-
 allprojects {
 
 	apply plugin: 'java'
@@ -32,50 +31,16 @@ allprojects {
 	}
 
 	bootJar.enabled = false
-
-
-
+	
 	ext {
 		libs = [
-				'spring'             : [
-						'org.springframework.boot:spring-boot-starter-web'
-				],
-				'springFlux'         : [
-						'org.springframework.boot:spring-boot-starter-webflux'
-				],
-				'persistance'        : [
-						'org.springframework.data:spring-data-mongodb',
-						'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
-				],
-				'persistanceReactive': [
-						'org.springframework.boot:spring-boot-starter-data-mongodb-reactive',
-						'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
-				],
-				'test'               : [
-						'io.projectreactor:reactor-test',
-						'junit:junit'
-				],
-				'templateEngine' : [
-						'org.springframework.boot:spring-boot-starter-thymeleaf',
-						'org.webjars:bootstrap:3.3.7',
-						'org.webjars:highcharts:5.0.8',
-				]
+			'springFlux'         : [
+					'org.springframework.boot:spring-boot-starter-webflux'
+			],
+			'persistanceReactive': [
+					'org.springframework.boot:spring-boot-starter-data-mongodb-reactive',
+					'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+			]
 		]
-
 	}
-
-//	dependencies {
-//
-//		implementation "org.springframework.boot:spring-boot-starter-web"
-//		implementation "org.springframework.boot:spring-boot-starter-webflux"
-//		implementation "org.springframework.data:spring-data-mongodb"
-//		implementation "de.flapdoodle.embed:de.flapdoodle.embed.mongo"
-//		implementation "org.springframework.boot:spring-boot-starter-data-mongodb-reactive"
-//		implementation "io.projectreactor:reactor-test"
-//		implementation "junit:junit"
-//		implementation "org.springframework.boot:spring-boot-starter-thymeleaf"
-//		implementation "org.projectlombok:lombok"
-//		annotationProcessor "org.projectlombok:lombok"
-//	}
-
 }
