@@ -1,4 +1,4 @@
-package lv.reactorcourse.auction.model.entities;
+package lv.reactorcourse.auction.user;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

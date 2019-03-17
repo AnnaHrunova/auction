@@ -1,9 +1,9 @@
 package lv.reactorcourse.auction.config;
 
-import lv.reactorcourse.auction.model.entities.Lot;
-import lv.reactorcourse.auction.model.entities.User;
-import lv.reactorcourse.auction.model.repositories.LotRepository;
-import lv.reactorcourse.auction.model.repositories.UserRepository;
+import lv.reactorcourse.auction.lots.Lot;
+import lv.reactorcourse.auction.user.User;
+import lv.reactorcourse.auction.lots.LotRepository;
+import lv.reactorcourse.auction.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;

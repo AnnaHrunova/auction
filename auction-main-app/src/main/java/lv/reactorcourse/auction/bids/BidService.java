@@ -1,15 +1,10 @@
 package lv.reactorcourse.auction.bids;
 
 import lombok.extern.slf4j.Slf4j;
-import lv.reactorcourse.auction.bids.dto.BidDto;
-import lv.reactorcourse.auction.bids.dto.PlaceBidCommand;
-import lv.reactorcourse.auction.bids.dto.PlaceBidResult;
-import lv.reactorcourse.auction.model.entities.Bid;
-import lv.reactorcourse.auction.model.entities.Lot;
-import lv.reactorcourse.auction.model.entities.User;
-import lv.reactorcourse.auction.model.repositories.BidRepository;
-import lv.reactorcourse.auction.model.repositories.LotRepository;
-import lv.reactorcourse.auction.model.repositories.UserRepository;
+import lv.reactorcourse.auction.lots.Lot;
+import lv.reactorcourse.auction.user.User;
+import lv.reactorcourse.auction.lots.LotRepository;
+import lv.reactorcourse.auction.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -45,7 +40,7 @@ public class BidService {
         this.lotRepository = lotRepository;
     }
 
-    public Flux<BidDto> findTopByPrice(String lotId, int count) {
+    public Flux<BidRepresentation> findTopByPrice(String lotId, int count) {
         PageRequest pageRequest = PageRequest.of(0, count, Sort.by("value").descending());
         return bidRepository.findAllByLotId(lotId, pageRequest).map(this::toDto);
     }
@@ -87,13 +82,12 @@ public class BidService {
         return new Bid(bidAndUser.getT1().getLot(), bidAndUser.getT2(), value, LocalDateTime.now(clock));
     }
 
-    private BidDto toDto(Bid bid) {
-        return new BidDto(
-                bid.getUser().getUsername(),
-                bid.getLot().getId(),
-                bid.getValue(),
-                bid.getCreatedAt()
-        );
+    private BidRepresentation toDto(Bid bid) {
+        return BidRepresentation.builder()
+                .username(bid.getUser().getUsername())
+                .lotId(bid.getLot().getId())
+                .value(bid.getValue())
+                .placedAt(bid.getCreatedAt())
+                .build();
     }
-
 }

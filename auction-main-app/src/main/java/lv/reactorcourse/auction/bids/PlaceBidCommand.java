@@ -1,4 +1,4 @@
-package lv.reactorcourse.auction.bids.dto;
+package lv.reactorcourse.auction.bids;
 
 import lombok.Data;
 

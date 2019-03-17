@@ -1,8 +1,5 @@
 package lv.reactorcourse.auction.bids;
 
-import lv.reactorcourse.auction.bids.dto.BidDto;
-import lv.reactorcourse.auction.bids.dto.PlaceBidCommand;
-import lv.reactorcourse.auction.bids.dto.PlaceBidResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +22,7 @@ public class BidController {
     }
 
     @GetMapping("top/{count}/{lotId}")
-    public Flux<BidDto> getBids(@PathVariable int count, @PathVariable String lotId) {
+    public Flux<BidRepresentation> getBids(@PathVariable int count, @PathVariable String lotId) {
         return bidService.findTopByPrice(lotId, count);
     }
 

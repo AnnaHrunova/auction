@@ -1,6 +1,6 @@
-package lv.reactorcourse.auction.model.repositories;
+package lv.reactorcourse.auction.user;
 
-import lv.reactorcourse.auction.model.entities.User;
+import lv.reactorcourse.auction.user.User;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 
 import java.math.BigInteger;

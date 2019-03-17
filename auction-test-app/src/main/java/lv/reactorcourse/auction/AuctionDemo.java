@@ -7,8 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.util.Logger;
-import reactor.util.Loggers;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -16,19 +14,19 @@ import java.time.Duration;
 
 @Slf4j
 @SpringBootApplication
-public class AuctionTestApplication {
+public class AuctionDemo {
 
     private static WebClient client = WebClient.create("http://localhost:8080");
 
     public static void main(String[] args) {
-        SpringApplication.run(AuctionTestApplication.class, args);
+        SpringApplication.run(AuctionDemo.class, args);
 
         Flux.interval(Duration.ofSeconds(1))
             .flatMap(iteration -> getLot())
             .flatMap(lot -> getTopBid(lot)
                     .switchIfEmpty(Mono.just(new BidDto(null, lot.getId(), BigDecimal.ZERO, null))))
-            .map(AuctionTestApplication::createCommand)
-            .flatMap(AuctionTestApplication::placeBid)
+            .map(AuctionDemo::createCommand)
+            .flatMap(AuctionDemo::placeBid)
             .subscribe(result -> log.info("bid placed : {}", result.isAccepted()));
     }
 

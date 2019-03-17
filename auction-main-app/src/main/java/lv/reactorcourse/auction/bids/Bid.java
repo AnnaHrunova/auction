@@ -1,7 +1,8 @@
-package lv.reactorcourse.auction.model.entities;
+package lv.reactorcourse.auction.bids;
 
 import lombok.Data;
-import lombok.Value;
+import lv.reactorcourse.auction.lots.Lot;
+import lv.reactorcourse.auction.user.User;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;

@@ -1,9 +1,7 @@
 package lv.reactorcourse.auction.lots;
 
 import lv.reactorcourse.auction.bids.BidService;
-import lv.reactorcourse.auction.bids.dto.BidDto;
-import lv.reactorcourse.auction.model.entities.Lot;
-import lv.reactorcourse.auction.model.repositories.LotRepository;
+import lv.reactorcourse.auction.bids.BidRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,25 +28,30 @@ public class LotController {
     }
 
     @GetMapping
-    public Flux<LotDto> getLots() {
+    public Flux<LotRepresentation> getLots() {
         return lotRepository.findAll()
                             .flatMap(this::findPrice)
-                            .map(this::toDto);
+                            .map(this::toRepresentation);
     }
 
     private Mono<Tuple2<Lot, BigDecimal>> findPrice(Lot lot) {
         Mono<BigDecimal> price = bidService.findTopByPrice(lot.getId(), 1)
                                            .next()
-                                           .map(BidDto::getValue)
+                                           .map(BidRepresentation::getValue)
                                            .switchIfEmpty(Mono.just(BigDecimal.ZERO));
 
         return Mono.just(lot).zipWith(price);
     }
 
-    private LotDto toDto(Tuple2<Lot, BigDecimal> lotAndPrice) {
+    private LotRepresentation toRepresentation(Tuple2<Lot, BigDecimal> lotAndPrice) {
         Lot lot = lotAndPrice.getT1();
         BigDecimal price = lotAndPrice.getT2();
-        return new LotDto(lot.getId(), lot.getCreatedBy().getUsername(), lot.getCreatedAt(), price);
+        return LotRepresentation.builder()
+                .id(lot.getId())
+                .createdBy(lot.getCreatedBy().getUsername())
+                .createdAt(lot.getCreatedAt())
+                .currentPrice(price)
+                .build();
     }
 
 }

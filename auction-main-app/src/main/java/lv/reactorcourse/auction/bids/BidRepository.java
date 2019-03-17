@@ -1,6 +1,6 @@
-package lv.reactorcourse.auction.model.repositories;
+package lv.reactorcourse.auction.bids;
 
-import lv.reactorcourse.auction.model.entities.Bid;
+import lv.reactorcourse.auction.bids.Bid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
