@@ -1,6 +1,8 @@
 package lv.reactorcourse.auction.bids;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lv.reactorcourse.auction.lots.Lot;
 import lv.reactorcourse.auction.user.User;
 import org.springframework.data.annotation.Id;

@@ -1,6 +1,8 @@
 package lv.reactorcourse.auction.bids;
 
+import lombok.Builder;
 import lombok.Data;
+import reactor.core.Disposable;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

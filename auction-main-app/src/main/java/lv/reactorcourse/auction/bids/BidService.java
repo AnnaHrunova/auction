@@ -2,10 +2,9 @@ package lv.reactorcourse.auction.bids;
 
 import lombok.extern.slf4j.Slf4j;
 import lv.reactorcourse.auction.lots.Lot;
-import lv.reactorcourse.auction.user.User;
 import lv.reactorcourse.auction.lots.LotRepository;
+import lv.reactorcourse.auction.user.User;
 import lv.reactorcourse.auction.user.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -29,7 +28,6 @@ public class BidService {
 
     private final LotRepository lotRepository;
 
-    @Autowired
     public BidService(BidRepository bidRepository,
                       UserRepository userRepository,
                       Clock clock,
