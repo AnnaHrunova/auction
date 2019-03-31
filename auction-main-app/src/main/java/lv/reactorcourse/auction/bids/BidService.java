@@ -5,10 +5,7 @@ import lv.reactorcourse.auction.lots.Lot;
 import lv.reactorcourse.auction.lots.LotRepository;
 import lv.reactorcourse.auction.user.User;
 import lv.reactorcourse.auction.user.UserRepository;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.function.Tuple2;
 
@@ -38,17 +35,17 @@ public class BidService {
         this.lotRepository = lotRepository;
     }
 
-    public Flux<BidRepresentation> findTopByPrice(String lotId, int count) {
-        PageRequest pageRequest = PageRequest.of(0, count, Sort.by("value").descending());
-        return bidRepository.findAllByLotId(lotId, pageRequest).map(this::toDto);
+    Mono<BidRepresentation> findTopByPrice(String lotId) {
+        return lotRepository.findById(lotId)
+                .flatMap(bidRepository::findFirstByLotOrderByValueDesc)
+                .map(this::toRepresentation);
     }
 
     Mono<PlaceBidResult> placeBid(PlaceBidCommand placeBid) {
-        PageRequest pageRequest = PageRequest.of(0, 1, Sort.by("value").descending());
         log.debug("place bid request : {}", placeBid);
-        return bidRepository
-                .findAllByLotId(placeBid.getLotId(), pageRequest)
-                .next()
+
+        return lotRepository.findById(placeBid.getLotId())
+                .flatMap(bidRepository::findFirstByLotOrderByValueDesc)
                 .flatMap(bid -> addBid(placeBid, bid))
                 .switchIfEmpty(createFirstBid(placeBid));
     }
@@ -80,7 +77,7 @@ public class BidService {
         return new Bid(bidAndUser.getT1().getLot(), bidAndUser.getT2(), value, LocalDateTime.now(clock));
     }
 
-    private BidRepresentation toDto(Bid bid) {
+    private BidRepresentation toRepresentation(Bid bid) {
         return BidRepresentation.builder()
                 .username(bid.getUser().getUsername())
                 .lotId(bid.getLot().getId())

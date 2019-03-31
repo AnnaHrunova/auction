@@ -21,9 +21,9 @@ public class BidController {
         this.bidService = bidService;
     }
 
-    @GetMapping("top/{count}/{lotId}")
-    public Flux<BidRepresentation> getBids(@PathVariable int count, @PathVariable String lotId) {
-        return bidService.findTopByPrice(lotId, count);
+    @GetMapping("top/{lotId}")
+    public Mono<BidRepresentation> getBids(@PathVariable String lotId) {
+        return bidService.findTopByPrice(lotId);
     }
 
     @PostMapping

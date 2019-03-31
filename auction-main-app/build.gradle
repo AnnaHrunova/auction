@@ -11,3 +11,11 @@ dependencies {
     testImplementation "org.spockframework:spock-core:$spockVersion"
     testImplementation "org.spockframework:spock-spring:$spockVersion"
 }
+
+
+//sourceSets {
+//    test {
+//        groovy.srcDirs += files('src/test/groovy')
+//        resources.srcDirs += files('src/test/resources')
+//    }
+//}

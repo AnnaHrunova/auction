@@ -40,7 +40,7 @@ public class AuctionDemo {
 
     static Mono<BidDto> getTopBid(LotDto lot) {
         return client.get()
-                     .uri("bids/top/1/" + lot.getId())
+                     .uri("bids/top/" + lot.getId())
                      .retrieve()
                      .bodyToFlux(BidDto.class)
                      .next();
