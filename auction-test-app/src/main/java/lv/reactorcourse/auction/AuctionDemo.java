@@ -24,33 +24,33 @@ public class AuctionDemo {
         Flux.interval(Duration.ofSeconds(1))
             .flatMap(iteration -> getLot())
             .flatMap(lot -> getTopBid(lot)
-                    .switchIfEmpty(Mono.just(new BidDto(null, lot.getId(), BigDecimal.ZERO, null))))
+                    .switchIfEmpty(Mono.just(new BidRepresentation(null, lot.getId(), BigDecimal.ZERO, null))))
             .map(AuctionDemo::createCommand)
             .flatMap(AuctionDemo::placeBid)
             .subscribe(result -> log.info("bid placed : {}", result.isAccepted()));
     }
 
-    static Mono<LotDto> getLot() {
+    static Mono<LotRepresentation> getLot() {
         return client.get()
                      .uri("lots")
                      .retrieve()
-                     .bodyToFlux(LotDto.class)
+                     .bodyToFlux(LotRepresentation.class)
                      .next();
     }
 
-    static Mono<BidDto> getTopBid(LotDto lot) {
+    static Mono<BidRepresentation> getTopBid(LotRepresentation lot) {
         return client.get()
                      .uri("bids/top/" + lot.getId())
                      .retrieve()
-                     .bodyToFlux(BidDto.class)
+                     .bodyToFlux(BidRepresentation.class)
                      .next();
     }
 
-    static PlaceBidCommand createCommand(BidDto bidDto) {
+    static PlaceBidCommand createCommand(BidRepresentation bidRepresentation) {
         return new PlaceBidCommand(
                 BigInteger.ONE,
-                bidDto.getLotId(),
-                bidDto.getValue().add(new BigDecimal("0.01"))
+                bidRepresentation.getLotId(),
+                bidRepresentation.getValue().add(new BigDecimal("0.01"))
         );
     }
 

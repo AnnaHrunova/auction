@@ -37,8 +37,15 @@ public class Initializer {
             .flatMap(i -> userRepository.save(new User(BigInteger.valueOf(i), "username" + i)))
             .subscribe();
         userRepository.save(new User(BigInteger.valueOf(-1), "lotCreator"))
-                      .flatMap(lotCreator -> lotRepository.save(new Lot(lotCreator, LocalDateTime.now(clock))))
+                      .flatMap(lotCreator -> lotRepository.save(createLot(lotCreator)))
                       .subscribe();
+    }
+
+    private Lot createLot(User lotCreator) {
+        return Lot.builder()
+                .createdBy(lotCreator)
+                .createdAt(LocalDateTime.now(clock))
+                .build();
     }
 
 }

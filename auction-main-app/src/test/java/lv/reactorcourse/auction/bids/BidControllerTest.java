@@ -42,14 +42,14 @@ public class BidControllerTest {
                 .flatMap(lotAndUser -> bidService.placeBid(createPlaceBidCommand(lotAndUser)));
 
 
-        final String id = lot.block().getId();
-        webTestClient.get()
-                .uri("/bids/top/1/" + id)
+        lot.doOnNext(l -> webTestClient.get()
+                .uri("/bids/top/1/" + l.getId())
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
-                .expectBodyList(BidRepresentation.class);
+                .expectBodyList(BidRepresentation.class))
+        .block();
     }
 
     private PlaceBidCommand createPlaceBidCommand(Tuple2<User, Lot> lotAndUser) {

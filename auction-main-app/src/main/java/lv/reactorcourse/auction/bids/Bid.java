@@ -1,5 +1,6 @@
 package lv.reactorcourse.auction.bids;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,9 @@ import java.time.LocalDateTime;
 
 @Data
 @Document
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Bid {
 
     @Id
@@ -28,14 +32,4 @@ public class Bid {
     private BigDecimal value;
 
     private LocalDateTime createdAt;
-
-    public Bid() {
-    }
-
-    public Bid(Lot lot, User user, BigDecimal value, LocalDateTime createdAt) {
-        this.lot = lot;
-        this.user = user;
-        this.value = value;
-        this.createdAt = createdAt;
-    }
 }

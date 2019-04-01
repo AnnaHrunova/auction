@@ -1,5 +1,6 @@
 package lv.reactorcourse.auction.lots;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,9 @@ import java.time.LocalDateTime;
 
 @Data
 @Document
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Lot {
 
     @Id
@@ -21,12 +25,4 @@ public class Lot {
     private User createdBy;
 
     private LocalDateTime createdAt;
-
-    public Lot() {
-    }
-
-    public Lot(User createdBy, LocalDateTime createdAt) {
-        this.createdBy = createdBy;
-        this.createdAt = createdAt;
-    }
 }

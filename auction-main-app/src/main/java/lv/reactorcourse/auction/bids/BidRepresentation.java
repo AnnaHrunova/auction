@@ -1,5 +1,6 @@
 package lv.reactorcourse.auction.bids;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,8 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-//@NoArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class BidRepresentation {
 
     private String username;
@@ -20,12 +22,4 @@ public class BidRepresentation {
 
     private LocalDateTime placedAt;
 
-    public BidRepresentation(){}
-
-    public BidRepresentation(String username, String lotId, BigDecimal value, LocalDateTime placedAt) {
-        this.username = username;
-        this.lotId = lotId;
-        this.value = value;
-        this.placedAt = placedAt;
-    }
 }

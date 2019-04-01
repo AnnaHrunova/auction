@@ -35,14 +35,14 @@ public class BidService {
         this.lotRepository = lotRepository;
     }
 
-    Mono<BidRepresentation> findTopByPrice(String lotId) {
+    Mono<BidRepresentation> findTopBidForLot(String lotId) {
         return lotRepository.findById(lotId)
                 .flatMap(bidRepository::findFirstByLotOrderByValueDesc)
                 .map(this::toRepresentation);
     }
 
     Mono<PlaceBidResult> placeBid(PlaceBidCommand placeBid) {
-        log.debug("place bid request : {}", placeBid);
+        log.info("place bid request : {}", placeBid);
 
         return lotRepository.findById(placeBid.getLotId())
                 .flatMap(bidRepository::findFirstByLotOrderByValueDesc)
@@ -70,11 +70,21 @@ public class BidService {
     }
 
     private Bid fromLotAndUser(Tuple2<Lot, User> lotAndUser, BigDecimal value){
-        return new Bid(lotAndUser.getT1(), lotAndUser.getT2(), value, LocalDateTime.now(clock));
+        return Bid.builder()
+                .lot(lotAndUser.getT1())
+                .user(lotAndUser.getT2())
+                .value(value)
+                .createdAt(LocalDateTime.now(clock))
+                .build();
     }
 
     private Bid fromBidAndUser(Tuple2<Bid, User> bidAndUser, BigDecimal value){
-        return new Bid(bidAndUser.getT1().getLot(), bidAndUser.getT2(), value, LocalDateTime.now(clock));
+        return Bid.builder()
+                .lot(bidAndUser.getT1().getLot())
+                .user(bidAndUser.getT2())
+                .value(value)
+                .createdAt(LocalDateTime.now(clock))
+                .build();
     }
 
     private BidRepresentation toRepresentation(Bid bid) {

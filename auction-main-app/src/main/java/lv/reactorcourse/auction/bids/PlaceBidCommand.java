@@ -1,13 +1,17 @@
 package lv.reactorcourse.auction.bids;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import reactor.core.Disposable;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class PlaceBidCommand {
 
     private BigInteger userId;
@@ -15,13 +19,4 @@ public class PlaceBidCommand {
     private String lotId;
 
     private BigDecimal value;
-
-    public PlaceBidCommand() {
-    }
-
-    public PlaceBidCommand(BigInteger userId, String lotId, BigDecimal value) {
-        this.userId = userId;
-        this.lotId = lotId;
-        this.value = value;
-    }
 }

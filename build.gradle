@@ -12,8 +12,9 @@ buildscript {
 	}
 }
 
-allprojects {
+apply plugin: 'groovy'
 
+allprojects {
 	apply plugin: 'java'
 	apply plugin: 'eclipse'
 	apply plugin: 'org.springframework.boot'
@@ -46,6 +47,8 @@ allprojects {
 }
 
 subprojects {
+	apply plugin: 'groovy'
+
 	dependencies {
 		compileOnly "org.projectlombok:lombok"
 		annotationProcessor "org.projectlombok:lombok"

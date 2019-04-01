@@ -5,13 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PlaceBidResult {
 
     private boolean accepted;
-
-    public PlaceBidResult(){}
-
-    public PlaceBidResult(boolean accepted) {
-        this.accepted = accepted;
-    }
 }
