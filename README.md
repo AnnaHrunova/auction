@@ -9,4 +9,5 @@ Project consists of two modules: 1.auction-main-app and 2.auction-test-app <br>
 2). Run AuctionDemo.java from 2.module. <br>
 3). You expected to see bids and status if they were accepted. <br> <br>
 <b> Used technologies: </b> <br>
-java 11, SpringBoot 2.1.3, gradle 5.2, reactor, embedded mongo, spring data.
+java 11, SpringBoot 2.1.3, gradle 5.2, reactor, embedded mongo, spring data.<br><br>
+<b>TODO: <b> add tests, use reactor.test.StepVerifier
